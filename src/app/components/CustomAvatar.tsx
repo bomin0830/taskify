@@ -14,8 +14,8 @@ export default function CustomAvatar({
 }: CustomAvatarProps) {
   return (
     <div
-      className={`border-2 border-white rounded-full overflow-hidden relative ${
-        size === 'small' ? 'w-[24px] h-[24px]' : 'w-[34px] h-[34px]'
+      className={`relative overflow-hidden rounded-full border-2 border-white ${
+        size === 'small' ? 'h-[24px] w-[24px]' : 'h-[34px] w-[34px]'
       }`}
     >
       {profileUrl ? (
@@ -23,17 +23,17 @@ export default function CustomAvatar({
           fill
           src={profileUrl}
           alt='Profile Image'
-          className='object-cover rounded-full'
+          className='rounded-full object-cover'
         />
       ) : (
         <>
           {/* 랜덤으로 색깔 지정하는 로직 추가 예정 */}
-          <div className='bg-custom_green-_a3c4a2 text-white justify-center items-center flex rounded-full h-full'>
+          <div className='flex h-full items-center justify-center rounded-full bg-custom_green-_a3c4a2 text-white'>
             <span
               className={`${size === 'small' ? 'text-[12px]' : 'text-[16px]'}`}
             >
               {/* nickName.at(0) */}
-              {nickName[0].toUpperCase()}
+              {nickName[0].at(0)?.toUpperCase()}
             </span>
           </div>
         </>
