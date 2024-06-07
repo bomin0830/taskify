@@ -41,7 +41,10 @@ export default function ProfileSetting() {
     const reader = new FileReader();
     reader.readAsDataURL(uploadFile);
     reader.onloadend = () => {
-      setUploadedImage(reader.result as string);
+      const result = reader.result;
+      if (typeof result === 'string') {
+        setUploadedImage(result);
+      }
     };
   };
 
@@ -53,6 +56,7 @@ export default function ProfileSetting() {
 
   return (
     <form
+      onSubmit={handleSubmit(onSubmit)}
       className='mx-5 my-[25px] flex w-[620px] flex-shrink-0 flex-col gap-8 rounded-lg bg-custom_white px-7 py-7 max-xl:w-auto max-xl:max-w-[620px] max-sm:mx-3 max-sm:flex max-sm:flex-col'
     >
       <div className='font-Pretendard text-4xl font-bold text-custom_black-_333236'>
