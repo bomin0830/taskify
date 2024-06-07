@@ -110,13 +110,12 @@ export default function ToDoCardModal({
 
           <div className='w-[200px] h-[155px] p-[16px] text-[14px] flex flex-col gap-[20px] rounded-lg border'>
             <div className='w-[168px]'>
-              <p className='mb-[6px] font-semibold font-semibold text-[12px]'>
-                담당자
-              </p>
-              <div className='flex gap-[8px] content-center'>
+              <p className='mb-[6px] font-semibold text-[12px]'>담당자</p>
+              <div className='flex gap-[8px] items-center'>
                 <CustomAvatar
                   profileUrl={mockData.assignee.profileImageUrl}
                   nickName={mockData.assignee.nickname}
+                  size='large'
                 />
                 <span>{mockData.assignee.nickname}</span>
               </div>
