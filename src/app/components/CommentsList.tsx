@@ -8,7 +8,6 @@ export default function CommentsList({
 }: {
   comments: CreateCommentRes[];
 }) {
-  const [selectedId, setSelectedId] = useState('');
   // 아래 state는 api적용 이후 수정 예정입니다.
   const [nowComments, setNowComments] = useState(comments);
 
@@ -32,14 +31,7 @@ export default function CommentsList({
                 />
               )}
             </div>
-            <Comment
-              index={index}
-              id={comment.id}
-              setSelectedId={setSelectedId}
-              createdAt={comment.createdAt}
-              content={comment.content}
-              isEditing={selectedId === comment.id ? true : false}
-            />
+            <Comment createdAt={comment.createdAt} content={comment.content} />
           </div>
         );
       })}

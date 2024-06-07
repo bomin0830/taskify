@@ -1,30 +1,21 @@
 import { ChangeEvent, useState } from 'react';
 
-interface Comment {
-  index: number;
-  id: number;
-  setSelectedId: any;
+interface CommentProps {
   createdAt: string;
   content: string;
-  isEditing: Boolean;
 }
 
-const Comment = ({
-  id,
-  setSelectedId, // onEdit
-  createdAt,
-  content,
-  isEditing,
-}: Comment) => {
+const Comment = ({ createdAt, content }: CommentProps) => {
   const [value, setValue] = useState(content);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleOnClick = () => {
-    setSelectedId(id);
+    setIsEditing(true);
   };
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    setIsEditing(false);
     e.preventDefault();
-    setSelectedId(undefined);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,25 +23,37 @@ const Comment = ({
     setValue(newValue);
   };
 
+  const cancelEdit = () => {
+    setValue(content);
+    setIsEditing(false);
+  };
+
   return (
-    <div className='text-[14px]'>
+    <div className='w-full text-[14px]'>
       <div className='mt-[6px] flex items-center gap-[8px]'>
         <span className='font-semibold'>장만철</span>
         <span className='text-[12px] text-[#9FA6B2]'>{createdAt}</span>
       </div>
       {isEditing ? (
-        <form onSubmit={handleSubmit}>
-          <input
-            value={value}
-            className='rounded-md border p-[5px]'
-            onChange={handleChange}
-          />
-        </form>
+        <div className='relative'>
+          <form onSubmit={handleSubmit} className='w-full'>
+            <input
+              value={value}
+              className='w-full rounded-md border p-[5px]'
+              onChange={handleChange}
+            ></input>
+          </form>
+        </div>
       ) : (
         <p>{value}</p>
       )}
       <div className='mt-[3px] flex gap-[10px] text-[10px] text-[#9FA6B2] underline'>
-        <button onClick={handleOnClick}>수정</button>
+        {/* 댓글이 수정중이면, 수정버튼 -> 취소버튼으로 변경 */}
+        {isEditing ? (
+          <button onClick={cancelEdit}>취소</button>
+        ) : (
+          <button onClick={handleOnClick}>수정</button>
+        )}
         <button>삭제</button>
       </div>
     </div>
