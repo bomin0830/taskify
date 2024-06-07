@@ -24,11 +24,7 @@ export default function CommentsList({
               />
               {/* 댓글이 1개면 구분선을 붙이지 않습니다 */}
               {nowComments.length > 1 && (
-                <img
-                  src='/images/Vector.svg'
-                  className='h-[50px] w-[4px]'
-                  alt='구분선'
-                />
+                <div className='my-[5px] h-[40px] w-[1px] bg-gray-300'></div>
               )}
             </div>
             <Comment createdAt={comment.createdAt} content={comment.content} />
