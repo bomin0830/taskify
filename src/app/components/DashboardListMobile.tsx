@@ -1,27 +1,46 @@
 'use client';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { mockData } from './mockdata/DashboardMock';
 import { useModal } from '@/context/ModalContext';
 import NewDashboardModal from './modals/NewDashboardModal';
+import instance from '@/app/api/axios';
 
 type ColorPalette = {
   [key: string]: string;
 };
 
 const ColorPalette: ColorPalette = {
-  green: 'bg-custom_green-_7ac555',
-  purple: 'bg-custom_purple',
-  orange: 'bg-custom_orange',
-  blue: 'bg-custom_blue',
-  pink: 'bg-custom_pink',
+  '#7ac555': 'bg-custom_green-_7ac555',
+  '#760dde': 'bg-custom_purple',
+  '#ffa500': 'bg-custom_orange',
+  '#76a6ea': 'bg-custom_blue',
+  '#e876ea': 'bg-custom_pink',
+};
+
+type DashboardData = {
+  id: string;
+  title: string;
+  color: string;
+  createdByMe: boolean;
 };
 
 export default function DashboardListMobile() {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(10);
   const startPointRef = useRef(0);
-
   const { openModal } = useModal();
+  const [dashboardsData, setDashboardsData] = useState<DashboardData[]>([]);
+  const startIndex = (currentPage - 1) * 10; //시작페이지
+  const totalPage = Math.ceil(totalCount / 10); //마지막페이지
+
+  /** 대시보드 조회 파라미터 */
+  const queryParams = {
+    navigationMethod: 'pagination',
+    cursorId: startIndex,
+    page: currentPage,
+    size: 10,
+  };
 
   const handleOpenModal = (content: React.ReactNode) => {
     openModal(content);
@@ -42,9 +61,17 @@ export default function DashboardListMobile() {
     }
   };
 
-  const startIndex = (currentPage - 1) * 10;
-  const selectedTodos = mockData.slice(startIndex, startIndex + 10);
-  const totalPage = Math.ceil(mockData.length / 10);
+  /** 대시보드 조회 */
+  useEffect(() => {
+    const fetchdashboardData = async () => {
+      const res = await instance.get('dashboards', {
+        params: queryParams,
+      });
+      setDashboardsData(res.data.dashboards);
+      setTotalCount(res.data.totalCount);
+    };
+    fetchdashboardData();
+  }, [currentPage]);
 
   return (
     <div className='p-0 px-3 sm:hidden'>
@@ -59,7 +86,7 @@ export default function DashboardListMobile() {
         </button>
       </div>
       <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-        {selectedTodos.map((todo) => (
+        {dashboardsData.map((todo) => (
           <Link
             key={todo.id}
             href={`/dashboard/${todo.id}`}

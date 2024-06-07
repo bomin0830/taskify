@@ -1,49 +1,89 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from './Pagination';
 import { mockData } from './mockdata/DashboardMock';
 import Image from 'next/image';
 import { useModal } from '@/context/ModalContext';
 import NewDashboardModal from './modals/NewDashboardModal';
+import instance from '@/app/api/axios';
 
 type ColorPalette = {
   [key: string]: string;
 };
 
 const ColorPalette: ColorPalette = {
-  green: 'bg-custom_green-_7ac555',
-  purple: 'bg-custom_purple',
-  orange: 'bg-custom_orange',
-  blue: 'bg-custom_blue',
-  pink: 'bg-custom_pink',
+  '#7ac555': 'bg-custom_green-_7ac555',
+  '#760dde': 'bg-custom_purple',
+  '#ffa500': 'bg-custom_orange',
+  '#76a6ea': 'bg-custom_blue',
+  '#e876ea': 'bg-custom_pink',
+};
+
+type DashboardData = {
+  id: string;
+  title: string;
+  color: string;
+  createdByMe: boolean;
 };
 
 export default function DashboardList() {
-  const [currentPage, setCurrentPage] = useState(1);
-
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(10);
+  const [dashboardsData, setDashboardsData] = useState<DashboardData[]>([]);
   const { openModal } = useModal();
+  const startIndex = (currentPage - 1) * 10; //시작페이지
+  const totalPage = Math.ceil(totalCount / 10); //마지막페이지
+
+  /** 대시보드 조회 파라미터 */
+  const queryParams = {
+    navigationMethod: 'pagination',
+    cursorId: startIndex,
+    page: currentPage,
+    size: 10,
+  };
 
   const handleOpenModal = (content: React.ReactNode) => {
     openModal(content);
   };
-
+  /** 다음페이지 넘기기 함수 */
   const handleNextPage = () => {
     if (currentPage * 10 < mockData.length) {
       setCurrentPage(currentPage + 1);
     }
   };
 
+  /** 이전페이지 넘기기 함수 */
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  const startIndex = (currentPage - 1) * 10;
-  const selectedTodos = mockData.slice(startIndex, startIndex + 10);
-  const totalPage = Math.ceil(mockData.length / 10);
+  /** 대시보드 조회 */
+  useEffect(() => {
+    const fetchdashboardData = async () => {
+      const res = await instance.get('dashboards', {
+        params: queryParams,
+      });
+      setDashboardsData(res.data.dashboards);
+      setTotalCount(res.data.totalCount);
+    };
+    fetchdashboardData();
+  }, [currentPage]);
+
+  /** 대시보드 생성 테스트용 파라미터 */
+  const requestData = {
+    title: '넥스트',
+    color: '#e876ea',
+  };
+
+  /** 테스트용 대시보드 만들기 함수 */
+  const onClick = async () => {
+    const response = await instance.post('dashboards', requestData);
+    console.log('POST 요청 성공:', response.data);
+  };
 
   return (
     <div className='p-0 px-3 max-sm:hidden'>
@@ -61,7 +101,7 @@ export default function DashboardList() {
         </button>
       </div>
       <div>
-        {selectedTodos.map((todo) => (
+        {dashboardsData.map((todo) => (
           <Link
             key={todo.id}
             href={`/dashboard/${todo.id}`}
@@ -91,6 +131,7 @@ export default function DashboardList() {
           onNext={handleNextPage}
         />
       </div>
+      <button onClick={onClick}>생성</button>
     </div>
   );
 }

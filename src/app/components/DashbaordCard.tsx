@@ -2,28 +2,47 @@
 
 import Link from 'next/link';
 import Pagination from './Pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { mockData } from './mockdata/DashboardMock';
 import Image from 'next/image';
 import { useModal } from '@/context/ModalContext';
 import NewDashboardModal from './modals/NewDashboardModal';
+import instance from '@/app/api/axios';
 
 type ColorPalette = {
   [key: string]: string;
 };
 
 const ColorPalette: ColorPalette = {
-  green: 'bg-custom_green-_7ac555',
-  purple: 'bg-custom_purple',
-  orange: 'bg-custom_orange',
-  blue: 'bg-custom_blue',
-  pink: 'bg-custom_pink',
+  '#7ac555': 'bg-custom_green-_7ac555',
+  '#760dde': 'bg-custom_purple',
+  '#ffa500': 'bg-custom_orange',
+  '#76a6ea': 'bg-custom_blue',
+  '#e876ea': 'bg-custom_pink',
+};
+
+type DashboardData = {
+  id: string;
+  title: string;
+  color: string;
+  createdByMe: boolean;
 };
 
 export default function DashboardCard() {
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [totalCount, setTotalCount] = useState<number>(10);
+  const [dashboardsData, setDashboardsData] = useState<DashboardData[]>([]);
   const { openModal } = useModal();
+  const startIndex = (currentPage - 1) * 5; //시작페이지
+  const totalPage = Math.ceil(totalCount / 5); //마지막페이지
+
+  /** 대시보드 조회 파라미터 */
+  const queryParams = {
+    navigationMethod: 'pagination',
+    cursorId: startIndex,
+    page: currentPage,
+    size: 5,
+  };
 
   const handleOpenModal = (content: React.ReactNode) => {
     openModal(content);
@@ -41,9 +60,17 @@ export default function DashboardCard() {
     }
   };
 
-  const startIndex = (currentPage - 1) * 5;
-  const selectedTodos = mockData.slice(startIndex, startIndex + 5);
-  const totalPage = Math.ceil(mockData.length / 5);
+  /** 대시보드 조회 */
+  useEffect(() => {
+    const fetchdashboardData = async () => {
+      const res = await instance.get('dashboards', {
+        params: queryParams,
+      });
+      setDashboardsData(res.data.dashboards);
+      setTotalCount(res.data.totalCount);
+    };
+    fetchdashboardData();
+  }, [currentPage]);
 
   return (
     <section className='w-sreen ml-6 mt-6'>
@@ -61,7 +88,7 @@ export default function DashboardCard() {
             />
           </div>
         </button>
-        {selectedTodos.map((todo) => (
+        {dashboardsData.map((todo) => (
           <Link
             key={todo.id}
             href={`/dashboard/${todo.id}`}
