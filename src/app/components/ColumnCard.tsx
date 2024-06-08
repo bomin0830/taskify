@@ -49,60 +49,63 @@ export default function ColumnCard({
   };
 
   return (
-    <>
-      <div
-        className='flex flex-col justify-center gap-[10px] rounded-md border border-custom_gray-_d9d9d9 bg-white p-[20px]'
-        onClick={() =>
-          handleOpenModal(
-            <ToDoCardModal
-              title={mockCardData.title}
-              description={mockCardData.description}
-              tags={mockCardData.tags}
-              dueDate={mockCardData.dueDate}
-              assignee={mockCardData.assignee}
-              imageUrl={mockCardData.imageUrl}
-            />,
-          )
-        }
-      >
-        {/* 카드 이미지 설정 */}
-        {imageUrl && (
+    <div
+      className='flex flex-col items-center gap-[10px] rounded-md border border-custom_gray-_d9d9d9 bg-white p-[20px] max-lg:flex-row max-sm:flex-col'
+      onClick={() =>
+        handleOpenModal(
+          <ToDoCardModal
+            title={mockCardData.title}
+            description={mockCardData.description}
+            tags={mockCardData.tags}
+            dueDate={mockCardData.dueDate}
+            assignee={mockCardData.assignee}
+            imageUrl={mockCardData.imageUrl}
+          />,
+        )
+      }
+    >
+      {/* 카드 이미지 설정 */}
+      {imageUrl && (
+        <div className='relative h-[160px] w-[274px] max-lg:max-h-[51px] max-lg:max-w-[90px] max-sm:max-h-[999px] max-sm:w-full max-sm:max-w-[999px]'>
           <Image
-            width={274}
-            height={160}
-            className='h-[160px] rounded-md object-cover'
+            fill
+            className='h-[160px] rounded-md object-cover max-lg:h-full'
             src={imageUrl}
             alt=''
           />
-        )}
-        {/* 제목 */}
-        <span>{title}</span>
-        {/* 태그 */}
-        <div className='flex'>
-          {tags.map((tag: any, index: number) => {
-            return (
-              <div
-                className='mr-[6px] rounded bg-[#F9EEE3] px-[6px] py-[4px] text-[12px] text-[#D58D49]'
-                key={index}
-              >
-                {tag}
-              </div>
-            );
-            1;
-          })}
         </div>
-        {/* 카드 마감날짜와 관리자 아이콘 */}
-        <div className='relative flex items-center justify-between text-[12px] text-custom_gray-_787486'>
-          <div className='flex gap-[6px]'>
-            <img src='/images/calender-icon.svg' alt='캘린더 아이콘' />
-            {dueDate}
+      )}
+      {/* 제목 */}
+      <div className='flex w-full flex-col gap-[10px]'>
+        <span className='h-[19px]'>{title}</span>
+        <div className='flex flex-col justify-center gap-[16px] max-lg:flex-row max-lg:items-center max-sm:flex-col max-sm:items-start'>
+          <div className='flex'>
+            {tags.map((tag: any, index: number) => {
+              return (
+                <div
+                  className='mr-[6px] flex h-[22px] items-center justify-center whitespace-nowrap rounded bg-[#F9EEE3] px-[6px] text-[12px] text-[#D58D49]'
+                  key={index}
+                >
+                  {tag}
+                </div>
+              );
+              1;
+            })}
           </div>
-          <CustomAvatar
-            nickName={assignerNickname}
-            profileUrl={assignerProfileUrl}
-          />
+          {/* 카드 마감날짜와 관리자 아이콘 */}
+          <div className='relative flex w-full items-center justify-between text-[12px] text-custom_gray-_787486'>
+            <div className='flex gap-[6px]'>
+              <img src='/images/calender-icon.svg' alt='캘린더 아이콘' />
+              {dueDate}
+            </div>
+            <CustomAvatar
+              nickName={assignerNickname}
+              profileUrl={assignerProfileUrl}
+            />
+          </div>
         </div>
       </div>
-    </>
+      {/* 태그 */}
+    </div>
   );
 }

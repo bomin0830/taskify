@@ -54,7 +54,7 @@ export default function Column({ title }: { title: string }) {
   };
 
   return (
-    <div className='border-gray-_eeeeee flex h-[1000px] w-[354px] flex-col gap-[25px] border-r p-[20px]'>
+    <div className='border-gray-_eeeeee flex min-w-[354px] flex-col gap-[25px] border-r p-[20px] max-lg:w-full'>
       {/* 카드 info */}
       <div className='flex items-center justify-between'>
         <div className='flex items-center justify-center text-[16px] font-bold'>
@@ -64,8 +64,8 @@ export default function Column({ title }: { title: string }) {
             alt='꾸미는 점'
           />
           <span className='mr-[12px]'>{title}</span>
-          <div className='text-gray-_787486 bg-gray-_eeeeee h-[20px] rounded px-[6px] text-[12px] font-normal'>
-            {cardsMockDataByColumnId.totalCount}
+          <div className='flex h-[20px] w-[20px] items-center justify-center rounded bg-custom_gray-_eeeeee text-center text-[12px] font-normal text-custom_gray-_787486'>
+            <p>{cardsMockDataByColumnId.totalCount}</p>
           </div>
         </div>
         <Image
