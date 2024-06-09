@@ -4,7 +4,7 @@ import { useModal } from '@/context/ModalContext';
 import { ChangeEvent, useState } from 'react';
 
 const modalButtonStyle =
-  'text-center w-[120px] h-[48px] text-[16px] rounded-lg border border-[#d9d9d9]';
+  'text-center w-[120px] h-[48px] text-[16px] rounded-lg border border-[#d9d9d9] max-sm:w-[138px]';
 
 const NewColumnModal = () => {
   const [value, setValue] = useState<string>();
@@ -17,10 +17,10 @@ const NewColumnModal = () => {
   };
 
   return (
-    <div className='flex w-[540px] flex-col gap-[32px]'>
-      <p className='text-[24px] font-bold'>새 컬럼 생성</p>
+    <div className='flex min-w-[492px] flex-col gap-[32px] max-sm:min-w-[279px]'>
+      <p className='text-[24px] font-bold max-sm:text-[20px]'>새 컬럼 생성</p>
       <form className='flex flex-col gap-[16px]'>
-        <label htmlFor='name' className='text-[18px]'>
+        <label htmlFor='name' className='text-[18px] max-sm:text-[16px]'>
           이름
         </label>
         <input
@@ -30,7 +30,7 @@ const NewColumnModal = () => {
           onChange={handleChange}
         />
       </form>
-      <div className='flex justify-end gap-[12px]'>
+      <div className='flex justify-end gap-[12px] text-[16px] max-sm:justify-between max-sm:text-[14px]'>
         <button
           type='button'
           className={`${modalButtonStyle} bg-white text-[#787486]`}
