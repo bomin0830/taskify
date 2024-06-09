@@ -1,0 +1,28 @@
+import instance from '@/app/api/axios';
+import { LOGIN_TOKEN } from '@/app/api/apiStrings';
+
+const getDashBoard = async () => {
+  const res = await instance.get('dashboards', {
+    params: { navigationMethod: 'pagination' },
+  });
+  console.log(res);
+};
+
+const getColumnsByDashBoardId = async (dashboardid: number) => {
+  const res = await instance.get(`columns`, {
+    params: { dashboardId: `${dashboardid}` },
+  });
+  return await res.data;
+};
+
+const postNewColumnData = async (title: string, dashboardid: number) => {
+  const data = {
+    title: `${title}`,
+    dashboardId: `${dashboardid}`,
+  };
+
+  const res = await instance.post(`columns`, data);
+  return await res.data;
+};
+
+export { getDashBoard, getColumnsByDashBoardId, postNewColumnData };

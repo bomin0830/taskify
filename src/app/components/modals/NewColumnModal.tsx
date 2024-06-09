@@ -1,7 +1,8 @@
 'use client';
 
 import { useModal } from '@/context/ModalContext';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { postNewColumnData } from '../ToDoCardModal/functions';
 
 const modalButtonStyle =
   'text-center w-[120px] h-[48px] text-[16px] rounded-lg border border-[#d9d9d9] max-sm:w-[138px]';
@@ -13,8 +14,16 @@ const NewColumnModal = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newvalue = e.target.value;
     setValue(newvalue);
-    console.log(value);
   };
+
+  /*
+    진행중입니다.
+
+    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    value && postNewColumnData(value, 8853);
+    };
+  */
 
   return (
     <div className='flex min-w-[492px] flex-col gap-[32px] max-sm:min-w-[279px]'>
