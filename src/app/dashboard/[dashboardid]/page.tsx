@@ -41,28 +41,52 @@ export default function dashboardPage() {
     openModal(content);
   };
 
+  const NewColumnButton = () => {
+    return (
+      <div className='min-w-[354px] max-lg:hidden'>
+        <div
+          className='border-gray-_d9d9d9 ml-[20px] mt-[68px] flex h-[70px] items-center justify-center rounded-lg border bg-white max-lg:ml-[0px] max-lg:mt-[0px]'
+          onClick={() => handleOpenModal(<NewColumnModal />)}
+        >
+          <p className='mr-[12px] text-[16px] font-bold'>
+            새로운 컬럼 추가하기
+          </p>
+          <ChipAddIcon size={'large'} />
+        </div>
+      </div>
+    );
+  };
+
+  const NewColumnButtonMedia = () => {
+    return (
+      <div className='hidden max-lg:fixed max-lg:bottom-0 max-lg:block max-lg:w-full max-lg:bg-custom_gray-_fafafa max-lg:px-[20px]'>
+        <div
+          className='border-gray-_d9d9d9 ml-[20px] mt-[68px] flex h-[70px] items-center justify-center rounded-lg border bg-white max-lg:ml-[0px] max-lg:mt-[0px]'
+          onClick={() => handleOpenModal(<NewColumnModal />)}
+        >
+          <p className='mr-[12px] text-[16px] font-bold'>
+            새로운 컬럼 추가하기
+          </p>
+          <ChipAddIcon size={'large'} />
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className='flex'>
+    <div className='relative flex'>
       <SideBar />
       <div className='w-screen'>
         <DashboardHeaderInSettings />
-        <div className='flex flex-wrap bg-custom_gray-_fafafa'>
+        <div className='flex overflow-x-auto whitespace-nowrap bg-custom_gray-_fafafa max-lg:flex-col max-lg:overflow-x-visible max-lg:whitespace-normal'>
           {/* 컬럼 컴포넌트 뿌리기 */}
           {columnMockData.data.map((column: any, index: number) => {
             return <Column key={column.id} title={column.title} />;
           })}
-          {/* 카드 추가하기 모달 */}
-          <button
-            className='border-gray-_d9d9d9 relative left-[20px] top-[68px] flex h-[70px] w-[354px] items-center justify-center rounded-lg border bg-white'
-            onClick={() => handleOpenModal(<NewColumnModal />)}
-          >
-            <p className='mr-[12px] text-[16px] font-bold'>
-              새로운 컬럼 추가하기
-            </p>
-            <ChipAddIcon size={'large'} />
-          </button>
+          <NewColumnButton />
         </div>
       </div>
+      <NewColumnButtonMedia />
     </div>
   );
 }
