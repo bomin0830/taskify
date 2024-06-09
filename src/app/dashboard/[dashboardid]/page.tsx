@@ -4,6 +4,8 @@ import Column from '@/app/components/Column';
 import NewColumnModal from '@/app/components/modals/NewColumnModal';
 import ChipAddIcon from '@/app/components/ui/chipAddIcon';
 import { useModal } from '@/context/ModalContext';
+import SideBar from '@/app/components/SideBar';
+import DashboardHeaderInSettings from '@/app/components/DashboardHeaderInSettings';
 
 const columnMockData = {
   result: 'SUCCESS',
@@ -40,19 +42,27 @@ export default function dashboardPage() {
   };
 
   return (
-    <div className='relative flex overflow-x-auto bg-custom_gray-_fafafa max-lg:flex-col'>
-      {/* 컬럼 컴포넌트 뿌리기 */}
-      {columnMockData.data.map((column: any, index: number) => {
-        return <Column key={column.id} title={column.title} />;
-      })}
-      {/* 카드 추가하기 모달 */}
-      <button
-        className='border-gray-_d9d9d9 left-[20px] top-[68px] flex h-[70px] min-w-[354px] items-center justify-center rounded-lg border bg-white max-lg:w-full'
-        onClick={() => <NewColumnModal />}
-      >
-        <p className='mr-[12px] text-[16px] font-bold'>새로운 컬럼 추가하기</p>
-        <ChipAddIcon size={'large'} />
-      </button>
+    <div className='flex'>
+      <SideBar />
+      <div className='w-screen'>
+        <DashboardHeaderInSettings />
+        <div className='flex flex-wrap bg-custom_gray-_fafafa'>
+          {/* 컬럼 컴포넌트 뿌리기 */}
+          {columnMockData.data.map((column: any, index: number) => {
+            return <Column key={column.id} title={column.title} />;
+          })}
+          {/* 카드 추가하기 모달 */}
+          <button
+            className='border-gray-_d9d9d9 relative left-[20px] top-[68px] flex h-[70px] w-[354px] items-center justify-center rounded-lg border bg-white'
+            onClick={() => handleOpenModal(<NewColumnModal />)}
+          >
+            <p className='mr-[12px] text-[16px] font-bold'>
+              새로운 컬럼 추가하기
+            </p>
+            <ChipAddIcon size={'large'} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
