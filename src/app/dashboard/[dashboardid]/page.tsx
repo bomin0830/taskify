@@ -6,6 +6,7 @@ import ChipAddIcon from '@/app/components/ui/chipAddIcon';
 import { useModal } from '@/context/ModalContext';
 import SideBar from '@/app/components/SideBar';
 import DashboardHeaderInSettings from '@/app/components/DashboardHeaderInSettings';
+import { useMemo } from 'react';
 
 const columnMockData = {
   result: 'SUCCESS',
@@ -41,7 +42,9 @@ export default function dashboardPage() {
     openModal(content);
   };
 
-  const NewColumnButton = () => {
+  /* 새로운 컬럼 생성 버튼 - PC */
+  const NewColumnButton = useMemo(() => {
+    console.log('hi');
     return (
       <div className='min-w-[354px] max-lg:hidden'>
         <div
@@ -55,9 +58,11 @@ export default function dashboardPage() {
         </div>
       </div>
     );
-  };
+  }, [handleOpenModal]);
 
-  const NewColumnButtonMedia = () => {
+  /* 새로운 컬럼 생성 버튼 - Tablet, Mobile */
+  const NewColumnButtonMedia = useMemo(() => {
+    console.log('hi');
     return (
       <div className='hidden max-lg:fixed max-lg:bottom-0 max-lg:block max-lg:w-full max-lg:bg-custom_gray-_fafafa max-lg:px-[20px]'>
         <div
@@ -71,7 +76,7 @@ export default function dashboardPage() {
         </div>
       </div>
     );
-  };
+  }, [handleOpenModal]);
 
   return (
     <div className='relative flex'>
@@ -83,10 +88,10 @@ export default function dashboardPage() {
           {columnMockData.data.map((column: any, index: number) => {
             return <Column key={column.id} title={column.title} />;
           })}
-          <NewColumnButton />
+          {NewColumnButton}
         </div>
       </div>
-      <NewColumnButtonMedia />
+      {NewColumnButtonMedia}
     </div>
   );
 }
