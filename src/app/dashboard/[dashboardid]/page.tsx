@@ -46,9 +46,9 @@ export default function dashboardPage() {
   const NewColumnButton = useMemo(() => {
     console.log('hi');
     return (
-      <div className='min-w-[354px] max-lg:hidden'>
+      <div className='min-w-[354px] max-xl:hidden'>
         <div
-          className='border-gray-_d9d9d9 ml-[20px] mt-[68px] flex h-[70px] items-center justify-center rounded-lg border bg-white max-lg:ml-[0px] max-lg:mt-[0px]'
+          className='border-gray-_d9d9d9 ml-[20px] mt-[68px] flex h-[70px] items-center justify-center rounded-lg border bg-white max-xl:ml-[0px] max-xl:mt-[0px]'
           onClick={() => handleOpenModal(<NewColumnModal />)}
         >
           <p className='mr-[12px] text-[16px] font-bold'>
@@ -64,9 +64,9 @@ export default function dashboardPage() {
   const NewColumnButtonMedia = useMemo(() => {
     console.log('hi');
     return (
-      <div className='hidden max-lg:fixed max-lg:bottom-0 max-lg:block max-lg:w-full max-lg:bg-custom_gray-_fafafa max-lg:px-[20px]'>
+      <div className='hidden max-xl:fixed max-xl:bottom-0 max-xl:block max-xl:w-full max-xl:bg-custom_gray-_fafafa max-xl:px-[20px]'>
         <div
-          className='border-gray-_d9d9d9 ml-[20px] mt-[68px] flex h-[70px] items-center justify-center rounded-lg border bg-white max-lg:ml-[0px] max-lg:mt-[0px]'
+          className='border-gray-_d9d9d9 ml-[20px] mt-[68px] flex h-[70px] items-center justify-center rounded-lg border bg-white max-xl:ml-[0px] max-xl:mt-[0px]'
           onClick={() => handleOpenModal(<NewColumnModal />)}
         >
           <p className='mr-[12px] text-[16px] font-bold'>
@@ -83,7 +83,7 @@ export default function dashboardPage() {
       <SideBar />
       <div className='w-screen'>
         <DashboardHeaderInSettings />
-        <div className='flex overflow-x-auto whitespace-nowrap bg-custom_gray-_fafafa max-lg:flex-col max-lg:overflow-x-visible max-lg:whitespace-normal'>
+        <div className='flex overflow-x-auto whitespace-nowrap bg-custom_gray-_fafafa max-xl:flex-col max-xl:overflow-x-visible max-xl:whitespace-normal'>
           {/* 컬럼 컴포넌트 뿌리기 */}
           {columnMockData.data.map((column: any, index: number) => {
             return <Column key={column.id} title={column.title} />;

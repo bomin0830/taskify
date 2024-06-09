@@ -29,10 +29,12 @@ const Comment = ({ createdAt, content }: CommentProps) => {
   };
 
   return (
-    <div className='w-full text-[14px]'>
+    <div className='w-full text-[14px] max-sm:text-[12px]'>
       <div className='mt-[6px] flex items-center gap-[8px]'>
         <span className='font-semibold'>장만철</span>
-        <span className='text-[12px] text-[#9FA6B2]'>{createdAt}</span>
+        <span className='text-[12px] text-[#9FA6B2] max-sm:text-[10px]'>
+          {createdAt}
+        </span>
       </div>
       {isEditing ? (
         <div className='relative'>

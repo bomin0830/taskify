@@ -50,7 +50,7 @@ export default function ColumnCard({
 
   return (
     <div
-      className='flex flex-col items-center gap-[10px] rounded-md border border-custom_gray-_d9d9d9 bg-white p-[20px] max-lg:flex-row max-sm:flex-col'
+      className='flex flex-col items-center gap-[10px] rounded-md border border-custom_gray-_d9d9d9 bg-white p-[20px] max-xl:flex-row max-sm:flex-col'
       onClick={() =>
         handleOpenModal(
           <ToDoCardModal
@@ -66,10 +66,10 @@ export default function ColumnCard({
     >
       {/* 카드 이미지 설정 */}
       {imageUrl && (
-        <div className='relative h-[160px] w-[274px] max-lg:max-h-[51px] max-lg:max-w-[90px] max-sm:max-h-[999px] max-sm:w-full max-sm:max-w-[999px]'>
+        <div className='relative h-[160px] w-[274px] max-xl:max-h-[51px] max-xl:max-w-[90px] max-sm:max-h-[999px] max-sm:w-full max-sm:max-w-[999px]'>
           <Image
             fill
-            className='h-[160px] rounded-md object-cover max-lg:h-full'
+            className='h-[160px] rounded-md object-cover max-xl:h-full'
             src={imageUrl}
             alt=''
           />
@@ -78,7 +78,7 @@ export default function ColumnCard({
       {/* 제목 */}
       <div className='flex w-full flex-col gap-[10px]'>
         <span className='h-[19px]'>{title}</span>
-        <div className='flex flex-col justify-center gap-[16px] max-lg:flex-row max-lg:items-center max-sm:flex-col max-sm:items-start'>
+        <div className='flex flex-col justify-center gap-[16px] max-xl:flex-row max-xl:items-center max-sm:flex-col max-sm:items-start'>
           <div className='flex'>
             {tags.map((tag: any, index: number) => {
               return (
@@ -92,7 +92,6 @@ export default function ColumnCard({
               1;
             })}
           </div>
-          {/* 카드 마감날짜와 관리자 아이콘 */}
           <div className='relative flex w-full items-center justify-between text-[12px] text-custom_gray-_787486'>
             <div className='flex gap-[6px]'>
               <img src='/images/calender-icon.svg' alt='캘린더 아이콘' />

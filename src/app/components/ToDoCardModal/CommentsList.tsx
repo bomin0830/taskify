@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { CreateCommentRes } from '../api/apiTypes/commentsType';
-import CustomAvatar from './CustomAvatar';
+import { CreateCommentRes } from '@/app/api/apiTypes/commentsType';
+import CustomAvatar from '../CustomAvatar';
 import Comment from './Comment';
 
 export default function CommentsList({
@@ -10,6 +10,7 @@ export default function CommentsList({
 }) {
   // 아래 state는 api적용 이후 수정 예정입니다.
   const [nowComments, setNowComments] = useState(comments);
+  const isMobile = window.innerWidth < 768;
 
   return (
     <div className='flex flex-col'>
@@ -20,7 +21,7 @@ export default function CommentsList({
               <CustomAvatar
                 profileUrl={comment.author.profileImageUrl}
                 nickName={comment.author.nickname}
-                size={'large'}
+                size={isMobile ? 'small' : 'large'}
               />
               {/* 댓글이 1개면 구분선을 붙이지 않습니다 */}
               {nowComments.length > 1 && (
