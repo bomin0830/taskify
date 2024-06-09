@@ -47,7 +47,7 @@ const DashboardHeaderInSettings = () => {
   }, []);
 
   return (
-    <nav className='flex h-[60px] items-center justify-between p-4'>
+    <nav className='flex h-[60px] items-center justify-between border-b p-4'>
       <div className='invisible flex items-center xl:visible'>
         <span className='text-lg font-bold'>비브리지</span>
         <span className='ml-2 text-yellow-500'>
