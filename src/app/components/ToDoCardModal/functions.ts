@@ -17,12 +17,32 @@ const getColumnsByDashBoardId = async (dashboardid: number) => {
 
 const postNewColumnData = async (title: string, dashboardid: number) => {
   const data = {
-    title: `${title}`,
-    dashboardId: `${dashboardid}`,
+    title: title,
+    dashboardId: dashboardid,
   };
 
   const res = await instance.post(`columns`, data);
   return await res.data;
 };
 
-export { getDashBoard, getColumnsByDashBoardId, postNewColumnData };
+const getCardsList = async (
+  columnId: number,
+  size: number,
+  cursorId: number,
+) => {
+  const params = {
+    columnId: `${columnId}`,
+    size: `${size}`,
+    cursorId: `${cursorId}`,
+  };
+
+  const res = await instance.get('cards', { params });
+  console.log(res);
+};
+
+export {
+  getDashBoard,
+  getColumnsByDashBoardId,
+  postNewColumnData,
+  getCardsList,
+};

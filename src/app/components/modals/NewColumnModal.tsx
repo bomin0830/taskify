@@ -16,19 +16,17 @@ const NewColumnModal = () => {
     setValue(newvalue);
   };
 
-  /*
-    진행중입니다.
-
-    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    value && postNewColumnData(value, 8853);
-    };
-  */
+    if (value) {
+      postNewColumnData(value, 8853);
+    }
+  };
 
   return (
     <div className='flex min-w-[492px] flex-col gap-[32px] max-sm:min-w-[279px]'>
       <p className='text-[24px] font-bold max-sm:text-[20px]'>새 컬럼 생성</p>
-      <form className='flex flex-col gap-[16px]'>
+      <form className='flex flex-col gap-[16px]' onSubmit={handleSubmit}>
         <label htmlFor='name' className='text-[18px] max-sm:text-[16px]'>
           이름
         </label>
