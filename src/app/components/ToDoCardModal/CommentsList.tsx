@@ -21,7 +21,7 @@ export default function CommentsList({
               <CustomAvatar
                 profileUrl={comment.author.profileImageUrl}
                 nickName={comment.author.nickname}
-                size={isMobile ? 'small' : 'large'}
+                size={isMobile ? 'small' : 'medium'}
               />
               {/* 댓글이 1개면 구분선을 붙이지 않습니다 */}
               {nowComments.length > 1 && (

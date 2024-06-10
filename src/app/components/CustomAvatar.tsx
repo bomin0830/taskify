@@ -6,12 +6,29 @@ import { useEffect, useState } from 'react';
 interface CustomAvatarProps {
   profileUrl?: string; //유저 프로필 이미지
   nickName: string; //유지 닉네임
-  size?: 'small' | 'large';
+  size?: 'small' | 'medium' | 'large';
 }
 
 const colors = ['#FFC85A', '#FDD446', '#9DD7ED', '#C4B1A2', '#A3C4A2'];
 
-// 유저 프로필 이미지가 없다면 프로필이 랜덤으로 지정된 배경색과 닉네임의 첫글자로 지정됩니다
+const getSizeClasses = (size: 'small' | 'medium' | 'large') => {
+  switch (size) {
+    case 'small':
+      return 'h-[24px] w-[24px] text-[12px]';
+    case 'medium':
+      return 'h-[34px] w-[34px] text-[16px]';
+    case 'large':
+      return 'h-[38px] w-[38px] text-[16px]';
+  }
+};
+
+/*
+  유저 프로필 이미지가 없다면 프로필이 랜덤으로 지정된 배경색과 닉네임의 첫글자로 지정됩니다
+  small: 24px/24px
+  medium: 34px/34px
+  large: 38px/38px
+*/
+
 export default function CustomAvatar({
   profileUrl,
   nickName,
@@ -29,11 +46,11 @@ export default function CustomAvatar({
     setBackgroundColor(getRandomBackgroundColor());
   }, []);
 
+  const sizeClasses = getSizeClasses(size);
+
   return (
     <div
-      className={`relative overflow-hidden rounded-full border-2 border-white ${
-        size === 'small' ? 'h-[24px] w-[24px]' : 'h-[34px] w-[34px]'
-      }`}
+      className={`relative overflow-hidden rounded-full border-2 border-white ${sizeClasses}`}
     >
       {profileUrl ? (
         <Image
@@ -48,12 +65,7 @@ export default function CustomAvatar({
             className={`flex h-full items-center justify-center rounded-full text-white`}
             style={{ backgroundColor }}
           >
-            <span
-              className={`${size === 'small' ? 'text-[12px]' : 'text-[16px]'}`}
-            >
-              {/* nickName.at(0) */}
-              {nickName[0].at(0)?.toUpperCase()}
-            </span>
+            <span>{nickName[0].at(0)?.toUpperCase()}</span>
           </div>
         </>
       )}

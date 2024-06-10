@@ -26,7 +26,7 @@ const CardInfo = ({
           <CustomAvatar
             profileUrl={assignee.profileImageUrl}
             nickName={assignee.nickname}
-            size={isMobile ? 'small' : 'large'}
+            size={isMobile ? 'small' : 'medium'}
           />
           <span>{assignee.nickname}</span>
         </div>
