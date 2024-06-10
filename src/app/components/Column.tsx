@@ -54,7 +54,7 @@ export default function Column({ title }: { title: string }) {
   };
 
   return (
-    <div className='border-gray-_eeeeee max-max-xl:w-full flex min-w-[354px] flex-col gap-[25px] border-r p-[20px]'>
+    <div className='border-gray-_eeeeee flex min-w-[354px] flex-col gap-[25px] border-r p-[20px] max-xl:w-full'>
       {/* 카드 info */}
       <div className='flex items-center justify-between'>
         <div className='flex items-center justify-center text-[16px] font-bold'>

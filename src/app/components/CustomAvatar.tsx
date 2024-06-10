@@ -24,7 +24,7 @@ const getSizeClasses = (size: 'small' | 'medium' | 'large') => {
 
 /*
   유저 프로필 이미지가 없다면 프로필이 랜덤으로 지정된 배경색과 닉네임의 첫글자로 지정됩니다
-  small: 24px/24px
+  small: 24px/24px (기본)
   medium: 34px/34px
   large: 38px/38px
 */
